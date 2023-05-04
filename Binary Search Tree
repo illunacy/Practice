@@ -1,0 +1,94 @@
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+        self.parent = None
+
+
+class BinarySearchTree:
+    def __init__(self):
+        self.root = None
+    
+
+    #ADDING A NEW VALUE
+    def insert(self, value):
+        if self.root == None:
+            self.root = Node(value) #is an object from  Node class
+            #self.root is a node with value, left and right
+        else:
+            self._insert(value, self.root)
+            
+    def _insert(self, value, currentNode):
+        if value < currentNode.value:
+            if currentNode.left is None:
+                currentNode.left = Node(value)
+                currentNode.left.parent = currentNode
+            else:
+                self._insert(value, currentNode.left)
+        elif value > currentNode.value:
+            if currentNode.right is None:
+                currentNode.right = Node(value)
+                currentNode.right.parent = currentNode
+            else:
+                self._insert(value, currentNode.right)
+        else:
+            pass
+
+
+    #PRINTING THE TREE IN ORDER
+    def printTree(self):
+        if self.root != None:
+            self._printTree(self.root)
+
+    def _printTree(self, currentNode):
+        if currentNode != None:
+            self._printTree(currentNode.left)
+            print(str(currentNode.value))
+            self._printTree(currentNode.right)
+
+
+    #CALCULATING THE HEIGHT OF THE TREE
+    def height(self):
+        if self.root!=None:
+            return self._height(self.root,0)
+        else:
+            return 0
+
+    def _height(self,currentNode,cur_height):
+        if currentNode==None: return cur_height
+        left_height=self._height(currentNode.left,cur_height+1)
+        right_height=self._height(currentNode.right,cur_height+1)
+        return max(left_height,right_height)
+
+    #DETERMINING WHETHER OR NOT A VALUE EXISTS THE TREE 
+    def exist(self,value):
+        if self.root != None:
+            return self._exist(value, self.root)
+        else:
+            return False
+
+    def _exist(self, value, currentNode):
+        if value == currentNode.value:
+            return True
+        elif value < currentNode.value and currentNode.left != None:
+            return self._exist(value, currentNode.left)
+        elif value > currentNode.value and currentNode.right != None:
+            return self._exist(value, currentNode.right)
+        else:
+            return False
+
+    #FINDING THE POSITION OF A VALUE
+    def find(self,value):
+        if self.root != None:
+            return self._exist(value, self.root)
+        else:
+            return False
+
+    def _find(self, value, currentNode):
+        if value == currentNode.value:
+            return True
+        elif value < currentNode.value and currentNode.left != None:
+            return self._exist(value, currentNode.left)
+        elif value > currentNode.value and currentNode.right != None:
+            return self._exist(value, currentNode.right)
