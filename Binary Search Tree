@@ -104,7 +104,7 @@ class BinarySearchTree:
 
     def deleteNode(self, node):
         if self.root != None:
-            return self._delete(value, self.root)
+            return self._deleteValue(node.value, self.root)
         else:
             return False
 
@@ -112,10 +112,10 @@ class BinarySearchTree:
 
         #CHECKING IF THE VALUE EXISTS IN THE TREE
         if self._exist(value, currentNode):
-            if value < currentNode.left and currentNode.left != None:
-                self._exist(value, currentNode.left)
-            elif value > currentNode.right and currentNode.right != None:
-                self._exist(value, currentNode.left)
+            if value < currentNode.value and currentNode.left != None:
+                currentNode.left = self._deleteValue(value, currentNode.left)
+            elif value > currentNode.value and currentNode.right != None:
+                currentNode.right = self._deleteValue(value, currentNode.right)
             else:
                 #TARGET NODE IS A LEAF NODE
                 if currentNode.left == None and currentNode.right == None :
@@ -133,6 +133,8 @@ class BinarySearchTree:
                     substitute = self.minimumSub(currentNode.right) #minimum value on the right branch of the target node
                     currentNode.value = substitute.value
                     currentNode.right = self._deleteValue(substitute.value, currentNode.right)
+        
+        return currentNode
 
 
     def minimumSub(self, node):
