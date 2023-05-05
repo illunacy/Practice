@@ -78,17 +78,78 @@ class BinarySearchTree:
         else:
             return False
 
-    #FINDING THE POSITION OF A VALUE
-    def find(self,value):
+
+    #RETURNS THE NODE OF THE TARGET VALUE
+    def find(self, value):
         if self.root != None:
-            return self._exist(value, self.root)
-        else:
-            return False
+            return self._find(value, self.root)
+        else: 
+            return None
 
     def _find(self, value, currentNode):
         if value == currentNode.value:
-            return True
+            return currentNode
         elif value < currentNode.value and currentNode.left != None:
-            return self._exist(value, currentNode.left)
-        elif value > currentNode.value and currentNode.right != None:
-            return self._exist(value, currentNode.right)
+            return self._find(value, currentNode.left)
+        elif value > currentNode.right and currentNode.right != None:
+            return self._find(value, currentNode.right)
+        else:
+            return False
+
+
+
+    #DELETES A VALUE FROM THE TREE
+    def deleteValue(self, value):
+        return self.deleteNode(self.find(value))
+
+    def deleteNode(self, node):
+        if self.root != None:
+            return self._delete(value, self.root)
+        else:
+            return False
+
+    def _deleteValue(self, value, currentNode):
+
+        #CHECKING IF THE VALUE EXISTS IN THE TREE
+        if self._exist(value, currentNode):
+            if value < currentNode.left and currentNode.left != None:
+                self._exist(value, currentNode.left)
+            elif value > currentNode.right and currentNode.right != None:
+                self._exist(value, currentNode.left)
+            else:
+                #TARGET NODE IS A LEAF NODE
+                if currentNode.left == None and currentNode.right == None :
+                    currentNode = None
+
+                #TARGET NODE HAS ONLY ONE CHILD
+                elif currentNode.right == None:
+                    currentNode = currentNode.left #the node is replaced with another node that brings along its banches
+                
+                elif currentNode.left == None:
+                    currentNode = currentNode.right #the node is replaced with another node that brings along its banches
+
+                #TARGET NODE HAS TWO CHILDREN    
+                else:
+                    substitute = self.minimumSub(currentNode.right) #minimum value on the right branch of the target node
+                    currentNode.value = substitute.value
+                    currentNode.right = self._deleteValue(substitute.value, currentNode.right)
+
+
+    def minimumSub(self, node):
+        while node.left != None:
+            node = node.left
+        return node
+                            
+
+
+
+def filling(tree, length = 6, max_int = 15):
+    from random import randint
+    list1= []
+    for i in range (length):
+        val = randint(0, max_int)
+        tree.add(val)
+        list1.append(val)
+    print(list1)
+    return tree
+
