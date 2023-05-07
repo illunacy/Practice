@@ -137,6 +137,53 @@ class BinarySearchTree:
         return currentNode
 
 
+    def traversePreOrder(self):
+        if self.root == None:
+            return False
+        else:
+            self._traversePreOrder(self.root)
+
+    def _traversePreOrder(self, node):
+        if node == None:
+            return
+        else:
+            print(node.value)
+            self._traversePreOrder(node.left)
+            self._traversePreOrder(node.right)
+
+
+
+    def traverseInOrder(self):
+        if self.root == None:
+            return False
+        else:
+            self._traverseInOrder(self.root)
+
+    def _traverseInOrder(self, node):
+        if node == None:
+            return
+        else:
+            self._traverseInOrder(node.left)
+            print(node.value)
+            self._traverseInOrder(node.right)
+
+    
+    def traversePostOrder(self):
+        if self.root == None:
+            return False
+        else:
+            self._traversePostOrder(self.root)
+
+    def _traversePostOrder(self, node):
+        if node == None:
+            return
+        else:
+            self._traversePostOrder(node.left)
+            self._traversePostOrder(node.right)
+            print(node.value)
+
+
+
     def minimumSub(self, node):
         while node.left != None:
             node = node.left
