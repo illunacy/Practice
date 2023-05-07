@@ -136,7 +136,7 @@ class BinarySearchTree:
         
         return currentNode
 
-
+    #TRAVERSING THE TREE
     def traversePreOrder(self):
         if self.root == None:
             return False
