@@ -184,11 +184,49 @@ class BinarySearchTree:
             print(node.value)
 
 
+    def minimumValue():
+        if self.root != None:
+            self._minimumValue(root)
+        else:
+            return False
+
+    def _minimumValue(self, node):
+        if node.left == None:
+            return node.value
+        return self._minimumValue(node.left)
+
+
+    def maximumValue():
+        if self.root != None:
+            self._maximumValue(root)
+        else:
+            return False
+
+    def _maximumValue(self, node):
+        if node.right == None:
+            return node.value
+        return self._minimumValue(node.right)
 
     def minimumSub(self, node):
         while node.left != None:
             node = node.left
         return node
+
+
+    def bstValidation():
+        if self.root != None:
+            self._bstValidation(self.root, float('-inf'), float('inf'))
+        else:
+            return False
+
+    def _bstValidation(self, node, minVal, maxVal):
+        if node == None :
+            return True
+        if node.value > maxVal or node.value < minVal:
+            return False
+        return self._bstValidation(node.left, minVal, node.value-1) and self._bstValidation(node.right, node.value+1, maxVal)
+
+
                             
 
 
@@ -202,5 +240,4 @@ def filling(tree, length = 6, max_int = 15):
         list1.append(val)
     print(list1)
     return tree
-
 
