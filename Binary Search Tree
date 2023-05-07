@@ -51,15 +51,15 @@ class BinarySearchTree:
     #CALCULATING THE HEIGHT OF THE TREE
     def height(self):
         if self.root!=None:
-            return self._height(self.root,0)
+            return self._height(root)
         else:
-            return 0
+            return -1
 
-    def _height(self,currentNode,cur_height):
-        if currentNode==None: return cur_height
-        left_height=self._height(currentNode.left,cur_height+1)
-        right_height=self._height(currentNode.right,cur_height+1)
-        return max(left_height,right_height)
+    def _height(self,node):
+        if node.left == None and node.right == None:
+            return 0
+        else:
+            return 1 + max(self._height(node.left) , self._height(node.right))
 
     #DETERMINING WHETHER OR NOT A VALUE EXISTS THE TREE 
     def exist(self,value):
@@ -136,6 +136,7 @@ class BinarySearchTree:
         
         return currentNode
 
+
     #TRAVERSING THE TREE
     def traversePreOrder(self):
         if self.root == None:
@@ -201,4 +202,5 @@ def filling(tree, length = 6, max_int = 15):
         list1.append(val)
     print(list1)
     return tree
+
 
