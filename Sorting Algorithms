@@ -1,0 +1,45 @@
+class Soloutions:
+    #BUBBLE SORT
+    def BubbleSort(self, nums):
+        for i in range(len(nums)):
+            isSorted = True
+            for j in range(1, len(nums)-i):
+                isSorted = True
+                if nums[j] < nums[j-1]:
+                    self.Swap(nums, j, j-1)
+                    isSorted = False
+            if isSorted == True:
+                return
+        return nums
+
+
+    def Swap(self, nums, index1, index2):
+        tempVal = nums[index1]
+        nums[index1] = nums[index2]
+        nums[index2] = tempVal
+
+    
+    #SELECTION SORT
+    def SelectionSort(self, nums):
+        for i in range(len(nums)):
+            MinValIndex = i
+            for j in range(i, len(nums)):
+                if nums[j] < nums[MinValIndex]:
+                    # temp = nums[j]
+                    # nums[j] = nums[MinValIndex]
+                    # nums[MinValIndex] = temp
+                    self.Swap(nums, MinValIndex, j)
+        return nums
+
+
+    #INSERTION SORT
+    def InsertionSort(self, nums):
+        for i in range(1, len(nums)):
+            val = nums[i]
+            j = i-1
+            while j >= 0 and nums[j] > val:
+                nums[j+1] = nums[j]
+                j -= 1
+            nums[j+1] = val
+        return nums
+
