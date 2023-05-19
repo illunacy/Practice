@@ -1,0 +1,49 @@
+class Search:
+
+    def LinearSearch(self, mylist, target):
+        for i in range(len(mylist)):
+            if mylist[i] == target:
+                return i
+        else:
+            return -1
+
+
+    def BinarySearchRec(self, mylist, target):
+        if len(mylist) == 1 and mylist[0] == target:
+            return 0
+        elif len(mylist) == 0:
+            return -1
+        else:
+            return self._BinarySearchRec(mylist, 0, len(mylist), target)
+            
+
+
+    def _BinarySearchRec(self, mylist, start, end, target):
+        if mylist != sorted(mylist):
+            return "not sorted"
+        if start > end:
+            return -1
+        mid = (start+end)/2
+        if target < mylist[mid]:
+            return self.BinarySearchRec(mylist, start, mid-1)
+        elif target > mylist[mid]:
+            return self.BinarySearchRec(mylist, mid+1, end)
+        else:
+            return mid
+
+
+
+    def BinarySearchIter(arr, target):
+        low = 0
+        high = len(arr) - 1
+
+        while low <= high:
+            mid = (low + high) // 2
+            if arr[mid] == target:
+                return mid
+            elif arr[mid] < target:
+                low = mid + 1
+            else:
+                high = mid - 1
+
+        return -1
